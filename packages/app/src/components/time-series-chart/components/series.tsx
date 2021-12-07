@@ -1,7 +1,7 @@
 import { TimestampedValue } from '@corona-dashboard/common';
 import { ScaleLinear } from 'd3-scale';
+import dynamic from 'next/dynamic';
 import { memo } from 'react';
-import { AreaTrend, BarTrend, LineTrend, RangeTrend } from '.';
 import {
   Bounds,
   GetX,
@@ -13,13 +13,9 @@ import {
   SeriesList,
   SeriesSingleValue,
 } from '../logic';
-import { GappedAreaTrend } from './gapped-area-trend';
-import { GappedLinedTrend } from './gapped-line-trend';
-import { GappedStackedAreaTrend } from './gapped-stacked-area-trend';
-import { SplitAreaTrend } from './split-area-trend';
 import { SplitBarTrend } from './split-bar-trend';
 import { StackedAreaTrend } from './stacked-area-trend';
-
+import React from 'react';
 interface SeriesProps<T extends TimestampedValue> {
   seriesConfig: SeriesConfig<T>;
   seriesList: SeriesList;
@@ -64,150 +60,190 @@ function SeriesUnmemoized<T extends TimestampedValue>({
 
           switch (config.type) {
             case 'gapped-line':
-              return (
-                <GappedLinedTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  color={config.color}
-                  style={config.style}
-                  strokeWidth={config.strokeWidth}
-                  curve={config.curve}
-                  getX={getX}
-                  getY={getY}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./gapped-line-trend').then(
+                    (mod) => mod.GappedLinedTrend
+                  )
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  style: config.style,
+                  strokeWidth: config.strokeWidth,
+                  curve: config.curve,
+                  getX: getX,
+                  getY: getY,
+                  id: id,
+                }
               );
             case 'line':
-              return (
-                <LineTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  color={config.color}
-                  style={config.style}
-                  strokeWidth={config.strokeWidth}
-                  curve={config.curve}
-                  getX={getX}
-                  getY={getY}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./line-trend.tsx').then((mod) => mod.LineTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  strokeWidth: config.strokeWidth,
+                  curve: config.curve,
+                  getX: getX,
+                  getY: getY,
+                  yScale: yScale,
+                  id: id,
+                }
               );
             case 'area':
-              return (
-                <AreaTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  strokeWidth={config.strokeWidth}
-                  curve={config.curve}
-                  getX={getX}
-                  getY={getY}
-                  yScale={yScale}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./area-trend.tsx').then((mod) => mod.AreaTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  strokeWidth: config.strokeWidth,
+                  curve: config.curve,
+                  getX: getX,
+                  getY: getY,
+                  yScale: yScale,
+                  id: id,
+                }
               );
             case 'gapped-area':
-              return (
-                <GappedAreaTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  strokeWidth={config.strokeWidth}
-                  curve={config.curve}
-                  getX={getX}
-                  getY={getY}
-                  yScale={yScale}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./gapped-area-trend').then(
+                    (mod) => mod.GappedAreaTrend
+                  )
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  strokeWidth: config.strokeWidth,
+                  curve: config.curve,
+                  getX: getX,
+                  getY: getY,
+                  yScale: yScale,
+                  id: id,
+                }
               );
             case 'bar':
-              return (
-                <BarTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  getX={getX}
-                  getY={getY}
-                  bounds={bounds}
-                  yScale={yScale}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./bar-trend').then((mod) => mod.BarTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  getX: getX,
+                  getY: getY,
+                  bounds: bounds,
+                  yScale: yScale,
+                  id: id,
+                }
               );
+
             case 'split-bar':
-              return (
-                <SplitBarTrend
-                  key={index}
-                  yScale={yScale}
-                  series={series as SeriesSingleValue[]}
-                  splitPoints={config.splitPoints}
-                  fillOpacity={config.fillOpacity}
-                  getX={getX}
-                  getY={getY}
-                  bounds={bounds}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./split-bar-trend').then((mod) => mod.SplitBarTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  splitPoints: config.splitPoints,
+                  fillOpacity: config.fillOpacity,
+                  getX: getX,
+                  getY: getY,
+                  bounds: bounds,
+                  id: id,
+                }
               );
+
             case 'range':
-              return (
-                <RangeTrend
-                  key={index}
-                  series={series as SeriesDoubleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  getX={getX}
-                  getY0={getY0}
-                  getY1={getY1}
-                  bounds={bounds}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./range-trend').then((mod) => mod.RangeTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  getX: getX,
+                  getY0: getY0,
+                  getY1: getY1,
+                  bounds: bounds,
+                  id: id,
+                }
               );
+
             case 'gapped-stacked-area':
-              return (
-                <GappedStackedAreaTrend
-                  key={index}
-                  series={series as SeriesDoubleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  strokeWidth={config.strokeWidth}
-                  mixBlendMode={config.mixBlendMode}
-                  getX={getX}
-                  getY0={getY0}
-                  getY1={getY1}
-                  bounds={bounds}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./gapped-stacked-area-trend').then(
+                    (mod) => mod.GappedStackedAreaTrend
+                  )
+                ),
+                {
+                  key: index,
+                  series: series,
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  strokeWidth: config.strokeWidth,
+                  mixBlendMode: config.mixBlendMode,
+                  getX: getX,
+                  getY0: getY0,
+                  getY1: getY1,
+                  bounds: bounds,
+                  id: id,
+                }
               );
             case 'stacked-area':
-              return (
-                <StackedAreaTrend
-                  key={index}
-                  series={series as SeriesDoubleValue[]}
-                  color={config.color}
-                  fillOpacity={config.fillOpacity}
-                  strokeWidth={config.strokeWidth}
-                  mixBlendMode={config.mixBlendMode}
-                  getX={getX}
-                  getY0={getY0}
-                  getY1={getY1}
-                  bounds={bounds}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./stacked-area-trend').then(
+                    (mod) => mod.StackedAreaTrend
+                  )
+                ),
+                {
+                  key: index,
+                  series: series,
+                  color: config.color,
+                  fillOpacity: config.fillOpacity,
+                  strokeWidth: config.strokeWidth,
+                  mixBlendMode: config.mixBlendMode,
+                  getX: getX,
+                  getY0: getY0,
+                  getY1: getY1,
+                  bounds: bounds,
+                  id: id,
+                }
               );
             case 'split-area':
-              return (
-                <SplitAreaTrend
-                  key={index}
-                  series={series as SeriesSingleValue[]}
-                  splitPoints={config.splitPoints}
-                  strokeWidth={config.strokeWidth}
-                  fillOpacity={config.fillOpacity}
-                  getX={getX}
-                  getY={getY}
-                  yScale={yScale}
-                  id={id}
-                />
+              return React.createElement(
+                dynamic(() =>
+                  import('./split-area-trend').then((mod) => mod.SplitAreaTrend)
+                ),
+                {
+                  key: index,
+                  series: series as SeriesSingleValue[],
+                  splitPoints: config.splitPoints,
+                  strokeWidth: config.strokeWidth,
+                  fillOpacity: config.fillOpacity,
+                  getX: getX,
+                  getY: getY,
+                  yScale: yScale,
+                  id: id,
+                }
               );
           }
         })
