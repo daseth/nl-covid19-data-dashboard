@@ -3,7 +3,7 @@ import { Bounds, SeriesDoubleValue, SeriesItem } from '../logic';
 import { useGappedSeries } from '../logic/use-gapped-series';
 import { StackedAreaTrend } from './stacked-area-trend';
 
-type GappedStackedAreaTrendProps = {
+export type GappedStackedAreaTrendProps = {
   series: SeriesDoubleValue[];
   color: string;
   fillOpacity?: number;

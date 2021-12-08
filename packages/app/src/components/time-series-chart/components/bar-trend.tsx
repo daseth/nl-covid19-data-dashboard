@@ -9,7 +9,7 @@ import { AreaTrend } from './area-trend';
 
 const DEFAULT_FILL_OPACITY = 0.2;
 
-type BarTrendProps = {
+export type BarTrendProps = {
   series: SeriesSingleValue[];
   color: string;
   fillOpacity?: number;

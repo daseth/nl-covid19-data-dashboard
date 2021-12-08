@@ -9,7 +9,7 @@ export type LineStyle = 'solid' | 'dashed';
 const DEFAULT_STYLE = 'solid';
 const DEFAULT_STROKE_WIDTH = 2;
 
-type LineTrendProps = {
+export type LineTrendProps = {
   series: SeriesSingleValue[];
   color: string;
   style?: 'solid' | 'dashed';

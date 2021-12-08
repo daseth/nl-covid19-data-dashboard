@@ -6,7 +6,7 @@ import { isPresent } from 'ts-is-present';
 import { Bounds, SeriesDoubleValue, SeriesItem } from '../logic';
 const DEFAULT_FILL_OPACITY = 0.6;
 
-type StackedAreaTrendProps = {
+export type StackedAreaTrendProps = {
   series: SeriesDoubleValue[];
   color: string;
   fillOpacity?: number;

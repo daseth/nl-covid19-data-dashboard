@@ -5,7 +5,7 @@ import { Bounds, SeriesDoubleValue, SeriesItem } from '../logic';
 
 const DEFAULT_FILL_OPACITY = 0.6;
 
-type RangeTrendProps = {
+export type RangeTrendProps = {
   series: SeriesDoubleValue[];
   color: string;
   fillOpacity?: number;

@@ -3,19 +3,27 @@ import { ScaleLinear } from 'd3-scale';
 import dynamic from 'next/dynamic';
 import { memo } from 'react';
 import {
+  AreaTrendProps,
+  BarTrendProps,
+  LineTrendProps,
+  RangeTrendProps,
+} from '.';
+import {
   Bounds,
   GetX,
   GetY,
   GetY0,
   GetY1,
   SeriesConfig,
-  SeriesDoubleValue,
   SeriesList,
   SeriesSingleValue,
 } from '../logic';
-import { SplitBarTrend } from './split-bar-trend';
-import { StackedAreaTrend } from './stacked-area-trend';
 import React from 'react';
+import { GappedLinedTrendProps } from './gapped-line-trend';
+import { GappedAreaTrendProps } from './gapped-area-trend';
+import { SplitBarTrendProps } from './split-bar-trend';
+import { GappedStackedAreaTrendProps } from './gapped-stacked-area-trend';
+import { StackedAreaTrendProps } from './stacked-area-trend';
 interface SeriesProps<T extends TimestampedValue> {
   seriesConfig: SeriesConfig<T>;
   seriesList: SeriesList;
@@ -61,10 +69,11 @@ function SeriesUnmemoized<T extends TimestampedValue>({
           switch (config.type) {
             case 'gapped-line':
               return React.createElement(
-                dynamic(() =>
-                  import('./gapped-line-trend').then(
-                    (mod) => mod.GappedLinedTrend
-                  )
+                dynamic(
+                  () =>
+                    import('./gapped-line-trend').then(
+                      (mod) => mod.GappedLinedTrend
+                    ) as Promise<React.FC<GappedLinedTrendProps>>
                 ),
                 {
                   key: index,
@@ -80,8 +89,11 @@ function SeriesUnmemoized<T extends TimestampedValue>({
               );
             case 'line':
               return React.createElement(
-                dynamic(() =>
-                  import('./line-trend.tsx').then((mod) => mod.LineTrend)
+                dynamic(
+                  () =>
+                    import('./line-trend').then(
+                      (mod) => mod.LineTrend
+                    ) as Promise<React.FC<LineTrendProps>>
                 ),
                 {
                   key: index,
@@ -91,14 +103,16 @@ function SeriesUnmemoized<T extends TimestampedValue>({
                   curve: config.curve,
                   getX: getX,
                   getY: getY,
-                  yScale: yScale,
                   id: id,
                 }
               );
             case 'area':
               return React.createElement(
-                dynamic(() =>
-                  import('./area-trend.tsx').then((mod) => mod.AreaTrend)
+                dynamic(
+                  () =>
+                    import('./area-trend').then(
+                      (mod) => mod.AreaTrend
+                    ) as Promise<React.FC<AreaTrendProps>>
                 ),
                 {
                   key: index,
@@ -115,10 +129,11 @@ function SeriesUnmemoized<T extends TimestampedValue>({
               );
             case 'gapped-area':
               return React.createElement(
-                dynamic(() =>
-                  import('./gapped-area-trend').then(
-                    (mod) => mod.GappedAreaTrend
-                  )
+                dynamic(
+                  () =>
+                    import('./gapped-area-trend').then(
+                      (mod) => mod.GappedAreaTrend
+                    ) as Promise<React.FC<GappedAreaTrendProps>>
                 ),
                 {
                   key: index,
@@ -135,8 +150,11 @@ function SeriesUnmemoized<T extends TimestampedValue>({
               );
             case 'bar':
               return React.createElement(
-                dynamic(() =>
-                  import('./bar-trend').then((mod) => mod.BarTrend)
+                dynamic(
+                  () =>
+                    import('./bar-trend').then(
+                      (mod) => mod.BarTrend
+                    ) as Promise<React.FC<BarTrendProps>>
                 ),
                 {
                   key: index,
@@ -147,14 +165,16 @@ function SeriesUnmemoized<T extends TimestampedValue>({
                   getY: getY,
                   bounds: bounds,
                   yScale: yScale,
-                  id: id,
+                  id,
                 }
               );
-
             case 'split-bar':
               return React.createElement(
-                dynamic(() =>
-                  import('./split-bar-trend').then((mod) => mod.SplitBarTrend)
+                dynamic(
+                  () =>
+                    import('./split-bar-trend').then(
+                      (mod) => mod.SplitBarTrend
+                    ) as Promise<React.FC<SplitBarTrendProps>>
                 ),
                 {
                   key: index,
@@ -164,14 +184,17 @@ function SeriesUnmemoized<T extends TimestampedValue>({
                   getX: getX,
                   getY: getY,
                   bounds: bounds,
+                  yScale: yScale,
                   id: id,
                 }
               );
-
             case 'range':
               return React.createElement(
-                dynamic(() =>
-                  import('./range-trend').then((mod) => mod.RangeTrend)
+                dynamic(
+                  () =>
+                    import('./range-trend').then(
+                      (mod) => mod.RangeTrend
+                    ) as Promise<React.FC<RangeTrendProps>>
                 ),
                 {
                   key: index,
@@ -185,13 +208,13 @@ function SeriesUnmemoized<T extends TimestampedValue>({
                   id: id,
                 }
               );
-
             case 'gapped-stacked-area':
               return React.createElement(
-                dynamic(() =>
-                  import('./gapped-stacked-area-trend').then(
-                    (mod) => mod.GappedStackedAreaTrend
-                  )
+                dynamic(
+                  () =>
+                    import('./gapped-stacked-area-trend').then(
+                      (mod) => mod.GappedStackedAreaTrend
+                    ) as Promise<React.FC<GappedStackedAreaTrendProps>>
                 ),
                 {
                   key: index,
@@ -209,10 +232,11 @@ function SeriesUnmemoized<T extends TimestampedValue>({
               );
             case 'stacked-area':
               return React.createElement(
-                dynamic(() =>
-                  import('./stacked-area-trend').then(
-                    (mod) => mod.StackedAreaTrend
-                  )
+                dynamic(
+                  () =>
+                    import('./stacked-area-trend').then(
+                      (mod) => mod.StackedAreaTrend
+                    ) as Promise<React.FC<StackedAreaTrendProps>>
                 ),
                 {
                   key: index,
@@ -225,23 +249,6 @@ function SeriesUnmemoized<T extends TimestampedValue>({
                   getY0: getY0,
                   getY1: getY1,
                   bounds: bounds,
-                  id: id,
-                }
-              );
-            case 'split-area':
-              return React.createElement(
-                dynamic(() =>
-                  import('./split-area-trend').then((mod) => mod.SplitAreaTrend)
-                ),
-                {
-                  key: index,
-                  series: series as SeriesSingleValue[],
-                  splitPoints: config.splitPoints,
-                  strokeWidth: config.strokeWidth,
-                  fillOpacity: config.fillOpacity,
-                  getX: getX,
-                  getY: getY,
-                  yScale: yScale,
                   id: id,
                 }
               );

@@ -2,7 +2,7 @@ import { SeriesItem, SeriesSingleValue } from '../logic';
 import { useGappedSeries } from '../logic/use-gapped-series';
 import { LineTrend } from './line-trend';
 
-type GappedLinedTrendProps = {
+export type GappedLinedTrendProps = {
   series: SeriesSingleValue[];
   color: string;
   style?: 'solid' | 'dashed';

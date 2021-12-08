@@ -8,7 +8,7 @@ import { curves, SeriesItem, SeriesSingleValue } from '../logic';
 const DEFAULT_FILL_OPACITY = 0.2;
 const DEFAULT_STROKE_WIDTH = 2;
 
-type AreaTrendProps = {
+export type AreaTrendProps = {
   series: SeriesSingleValue[];
   color: string;
   fillOpacity?: number;

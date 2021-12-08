@@ -9,7 +9,7 @@ import { SplitPointGradient } from './split-point-gradient';
 
 const DEFAULT_FILL_OPACITY = 0.2;
 
-type BarTrendProps = {
+export type SplitBarTrendProps = {
   series: SeriesSingleValue[];
   splitPoints: SplitPoint[];
   getX: GetX;
@@ -31,7 +31,7 @@ export function SplitBarTrend({
   bandPadding = 0.2,
   yScale,
   id,
-}: BarTrendProps) {
+}: SplitBarTrendProps) {
   const nonNullSeries = useMemo(
     () => series.filter((x) => isPresent(x.__value)),
     [series]

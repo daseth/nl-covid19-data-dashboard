@@ -8,7 +8,7 @@ import { useGappedSeries } from '../logic/use-gapped-series';
 const DEFAULT_FILL_OPACITY = 0.2;
 const DEFAULT_STROKE_WIDTH = 2;
 
-type GappedAreaTrendProps = {
+export type GappedAreaTrendProps = {
   series: SeriesSingleValue[];
   color: string;
   fillOpacity?: number;
