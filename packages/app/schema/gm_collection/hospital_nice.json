@@ -8,6 +8,7 @@
     "gmcode",
     "admissions_on_date_of_admission",
     "admissions_on_date_of_reporting",
+    "admissions_on_date_of_admission_per_100000",
     "date_of_insertion_unix"
   ],
   "properties": {
@@ -23,6 +24,9 @@
     },
     "admissions_on_date_of_reporting": {
       "type": "integer"
+    },
+    "admissions_on_date_of_admission_per_100000": {
+      "type": "number"
     },
     "date_of_insertion_unix": {
       "type": "integer"

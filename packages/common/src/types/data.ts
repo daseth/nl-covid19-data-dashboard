@@ -168,6 +168,7 @@ export interface GmCollectionHospitalNice {
   gmcode: string;
   admissions_on_date_of_admission: number;
   admissions_on_date_of_reporting: number;
+  admissions_on_date_of_admission_per_100000: number;
   date_of_insertion_unix: number;
 }
 export interface GmCollectionTestedOverall {
@@ -1502,6 +1503,7 @@ export interface VrCollectionHospitalNice {
   vrcode: string;
   admissions_on_date_of_admission: number;
   admissions_on_date_of_reporting: number;
+  admissions_on_date_of_admission_per_100000: number;
   date_of_insertion_unix: number;
 }
 export interface VrCollectionTestedOverall {
