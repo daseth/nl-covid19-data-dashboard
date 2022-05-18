@@ -74,6 +74,7 @@ function pageDataListItem(page: PagePartPage) {
                         .icon(FaLanguage)
                         .child(
                           S.documentList()
+                            .id(item.scope)
                             .title(item.title)
                             .filter(
                               '_type == "lokalizeText" && key match $subject'

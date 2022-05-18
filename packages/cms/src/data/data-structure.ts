@@ -39,10 +39,12 @@ export const dataStructure = {
   gm_collection: {
     hospital_nice: [
       "admissions_on_date_of_admission",
+      "admissions_on_date_of_admission_per_100000",
       "admissions_on_date_of_reporting",
     ],
     hospital_nice_choropleth: [
       "admissions_on_date_of_admission",
+      "admissions_on_date_of_admission_per_100000",
       "admissions_on_date_of_reporting",
     ],
     tested_overall: ["infected_per_100k", "infected"],
@@ -66,7 +68,6 @@ export const dataStructure = {
   nl: {
     booster_shot_administered: [
       "administered_total",
-      "ggd_administered_last_7_days",
       "ggd_administered_total",
       "others_administered_total",
     ],
@@ -468,10 +469,12 @@ export const dataStructure = {
   vr_collection: {
     hospital_nice: [
       "admissions_on_date_of_admission",
+      "admissions_on_date_of_admission_per_100000",
       "admissions_on_date_of_reporting",
     ],
     hospital_nice_choropleth: [
       "admissions_on_date_of_admission",
+      "admissions_on_date_of_admission_per_100000",
       "admissions_on_date_of_reporting",
     ],
     tested_overall: ["infected_per_100k", "infected"],
