@@ -127,7 +127,6 @@ export default function CovidVariantenPage(
               sampleSize={variantSidebarValue.sample_size}
               text={{
                 ...textShared.varianten_tabel,
-                varianten: commonTexts.variants,
                 description: textNl.varianten_omschrijving,
               }}
               source={textNl.bronnen.rivm}
@@ -142,7 +141,6 @@ export default function CovidVariantenPage(
           <VariantsStackedAreaTile
             text={{
               ...textNl.varianten_over_tijd_grafiek,
-              varianten: commonTexts.variants,
             }}
             values={variantChart}
             metadata={{
