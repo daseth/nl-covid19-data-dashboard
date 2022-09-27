@@ -59,7 +59,7 @@ const STATIC_ASSET_HTTP_DATE = new Date(
 
   const server = express();
 
-  server.use(helmet());
+  // server.use(helmet({crossOriginResourcePolicy: false}));
   server.disable('x-powered-by');
 
   /**

@@ -2,6 +2,7 @@ import { NlSewer } from '@corona-dashboard/common';
 import { Experimenteel, Rioolvirus } from '@corona-dashboard/icons';
 import { isEmpty } from 'lodash';
 import { GetStaticPropsContext } from 'next';
+import { useEffect, useState } from 'react'
 import { CollapsibleContent } from '~/components/collapsible';
 import { KpiTile } from '~/components/kpi-tile';
 import { KpiValue } from '~/components/kpi-value';
@@ -54,7 +55,7 @@ export const getStaticProps = createGetStaticProps(
   selectGmData(
     'difference.sewer__average',
     'sewer_per_installation',
-    'static_values.population_count',
+    // 'static_values.population_count',
     'sewer',
     'code'
   ),
@@ -87,7 +88,16 @@ const SewerWater = (props: StaticProps<typeof getStaticProps>) => {
   );
 
   const sewerAverages = data.sewer;
-  const populationCount = data.static_values.population_count;
+  // const populationCount = data.static_values.population_count;
+
+  const [populationCount, setPopulationCount] = useState<number>();
+
+  useEffect(() => {(
+    async () => {
+      const data = await (await fetch('https://nl-covid19-data-api.herokuapp.com/api/GM0014')).json();
+      setPopulationCount(data.static_values.population_count)
+    })();
+  }, []);
 
   if (!sewerAverages) {
     /**
