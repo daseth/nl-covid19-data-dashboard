@@ -46,7 +46,7 @@ export function useLokalizeText(initialLocale: LanguageKey) {
       'development'
   );
 
-  const toggleHotReloadButton = showSanityDebugToggle ? (
+  const toggleButton = showSanityDebugToggle ? (
     <ToggleButton isActive={isActive} onClick={() => setIsActive((x) => !x)}>
       <Toggle values={[...datasets]} onToggle={setDataset} value={dataset} />
       <Toggle
@@ -133,7 +133,7 @@ export function useLokalizeText(initialLocale: LanguageKey) {
     }
   }, [initialLocale, dataset, isActive, locale]);
 
-  return { text, toggleHotReloadButton, dataset, locale } as const;
+  return [text, toggleButton, dataset] as const;
 }
 
 /**
