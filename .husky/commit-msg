@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const chalk = require('chalk');
+
+const pattern = /^(feat|fix|chore)([(].+[)])?: .+$/i;
+const errorMessage = 'Your commit message did not match the pattern, please check the coding standards and try again';
+const commitMessage = fs.readFileSync(process.argv[2], 'utf8').trim();
+console.log('commitMessage :', commitMessage);
+const regex = new RegExp(pattern);
+
+if (regex.test(commitMessage)) {
+    console.log('Your commit message meets the requirements');
+    process.exit(0);
+} else {
+    console.warn(chalk.red(errorMessage))
+    process.exit(1);
+}
