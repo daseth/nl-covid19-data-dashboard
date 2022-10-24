@@ -3,16 +3,25 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-const pattern = /^(feat|fix|chore)([(].+[)])?: .+$/i;
-const errorMessage = 'Your commit message did not match the pattern, please check the coding standards and try again';
-const commitMessage = fs.readFileSync(process.argv[2], 'utf8').trim();
-console.log('commitMessage :', commitMessage);
-const regex = new RegExp(pattern);
+const consoleMessages = {
+  errorMessage: 'Your commit message did not match the pattern, please check the coding standards and try again.',
+  successMessage: 'Your commit message meets the requirements.',
+  acceptedFormats: `Accepted formats:
+    feat(optional-scope): commit description example for features
+    fix(optional-scope): commit description example for fixes
+    chore(optional-scope): commit description example for cleanups`
+}
 
-if (regex.test(commitMessage)) {
-    console.log('Your commit message meets the requirements');
-    process.exit(0);
+const pattern = /^(feat|fix|chore)([(].+[)])?: .+$/i;
+const commitMessage = fs.readFileSync(process.argv[2], 'utf8').trim();
+const messageRegex = new RegExp(pattern);
+
+if (messageRegex.test(commitMessage)) {
+  console.log(chalk.green(consoleMessages.successMessage));
+  process.exit(0);
 } else {
-    console.warn(chalk.red(errorMessage))
-    process.exit(1);
+  console.log(chalk.red(consoleMessages.errorMessage));
+  console.log(chalk.red(`Your commit message: "${commitMessage}"`));
+  console.log(chalk.blue(consoleMessages.acceptedFormats));
+  process.exit(1);
 }
