@@ -59,6 +59,8 @@ ARG ARG_NEXT_PUBLIC_COMMIT_ID
 ARG ARG_NEXT_PUBLIC_PHASE="production"
 ARG ARG_NEXT_PUBLIC_HOT_RELOAD_LOKALIZE=0
 ARG ARG_API_URL
+ARG USERNAME
+ARG PASSWORD
 
 ENV NEXT_PUBLIC_SANITY_DATASET=$ARG_NEXT_PUBLIC_SANITY_DATASET
 ENV NEXT_PUBLIC_SANITY_PROJECT_ID=$ARG_NEXT_PUBLIC_SANITY_PROJECT_ID
@@ -66,6 +68,22 @@ ENV NEXT_PUBLIC_COMMIT_ID=$ARG_NEXT_PUBLIC_COMMIT_ID
 ENV NEXT_PUBLIC_PHASE=$ARG_NEXT_PUBLIC_PHASE
 ENV NEXT_PUBLIC_HOT_RELOAD_LOKALIZE=ARG_NEXT_PUBLIC_HOT_RELOAD_LOKALIZE
 ENV API_URL=$ARG_API_URL
+
+RUN apk add --no-cache --virtual \
+      openssh \
+    && echo $USERNAME:$PASSWORD | chpasswd
+
+# Copy the sshd_config file to the /etc/ssh/ directory
+COPY sshd_config /etc/ssh/
+
+# Copy and configure the ssh_setup file
+RUN mkdir -p /tmp
+COPY ssh_setup.sh /tmp
+RUN chmod +x /tmp/ssh_setup.sh \
+    && (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null)
+
+# Open port 2222 for SSH access
+EXPOSE 80 2222
 
 # Layer that always gets executed
 FROM builder

@@ -4,5 +4,8 @@ services:
   web:
     build:
       context: .
+      args:
+        USERNAME: ${USERNAME}
+        PASSWORD: ${PASSWORD}
     ports:
       - '8080:8080'
