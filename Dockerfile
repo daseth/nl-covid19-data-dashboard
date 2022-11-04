@@ -43,6 +43,10 @@ RUN apk add --no-cache --virtual \
       libjpeg-turbo \
       freetype
 
+RUN   apk update && \
+      apk add --no-cache \
+      openssh-keygen
+
 # Layer cache for rebuilds without sourcecode changes.
 # This relies on the JSONS being downloaded by the builder.
 FROM deps as builder
