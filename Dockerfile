@@ -59,8 +59,6 @@ ARG ARG_NEXT_PUBLIC_COMMIT_ID
 ARG ARG_NEXT_PUBLIC_PHASE="production"
 ARG ARG_NEXT_PUBLIC_HOT_RELOAD_LOKALIZE=0
 ARG ARG_API_URL
-ARG USERNAME
-ARG PASSWORD
 
 ENV NEXT_PUBLIC_SANITY_DATASET=$ARG_NEXT_PUBLIC_SANITY_DATASET
 ENV NEXT_PUBLIC_SANITY_PROJECT_ID=$ARG_NEXT_PUBLIC_SANITY_PROJECT_ID
@@ -71,7 +69,7 @@ ENV API_URL=$ARG_API_URL
 
 RUN apk add --no-cache --virtual \
       openssh \
-    && echo $USERNAME:$PASSWORD | chpasswd
+    && echo "root:Docker!" | chpasswd
 
 # Copy the sshd_config file to the /etc/ssh/ directory
 COPY sshd_config /etc/ssh/
