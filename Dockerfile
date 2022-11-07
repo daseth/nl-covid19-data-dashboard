@@ -102,11 +102,11 @@ RUN yarn download \
 && yarn workspace @corona-dashboard/cms lokalize:import --dataset=$NEXT_PUBLIC_SANITY_DATASET \
 && yarn workspace @corona-dashboard/app build \
 && mkdir -p /app/packages/app/public/images/choropleth \
-&& addgroup -g 1001 -S nodejs \
-&& adduser -S nextjs -u 1001 \
-&& chown -R nextjs:nodejs /app/packages/app/.next \
-&& chown -R nextjs:nodejs /app/packages/app/public/images/choropleth
-
-USER nextjs
+#&& addgroup -g 1001 -S nodejs \
+#&& adduser -S nextjs -u 1001 \
+#&& chown -R nextjs:nodejs /app/packages/app/.next \
+#&& chown -R nextjs:nodejs /app/packages/app/public/images/choropleth
+#
+#USER nextjs
 
 CMD ["yarn", "start"]
