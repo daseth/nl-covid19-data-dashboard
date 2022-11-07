@@ -6,3 +6,7 @@ ssh-keygen -A
 if [ ! -d "/var/run/sshd" ]; then
     mkdir -p /var/run/sshd
 fi
+
+if [ ! -d "/run/openrc" ]; then
+    mkdir -p /run/openrc
+fi

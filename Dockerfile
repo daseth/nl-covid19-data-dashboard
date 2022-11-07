@@ -83,12 +83,11 @@ COPY sshd_config /etc/ssh/
 # Copy and configure the ssh_setup file
 RUN mkdir -p /tmp
 COPY ssh_setup.sh /tmp
-RUN chmod +x /tmp/ssh_setup.sh \
-    && (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null) \
-    && rc-status \
-    && touch /run/openrc/softlevel \
-    && service sshd status \
-    && service sshd start
+RUN chmod +x /tmp/ssh_setup.sh
+RUN rc-status
+RUN touch /run/openrc/softlevel
+RUN (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null)
+RUN service sshd start
 
 # Open port 2222 for SSH access
 EXPOSE 80 2222
