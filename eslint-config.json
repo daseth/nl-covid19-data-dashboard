@@ -1,7 +1,9 @@
 {
   "extends": [
     "eslint:recommended",
-    "prettier"
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
   ],
   "env": {
     "es6": true,
@@ -13,6 +15,35 @@
       {
         "allow": ["warn", "error"]
       }
+    ],
+    "import/no-unresolved": "error",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      },
+      "alias": {
+        "map": [["~", "./packages/app/src/"]],
+        "extensions": [".ts", ".js", ".tsx"]
+      }
+    }
   }
 }
