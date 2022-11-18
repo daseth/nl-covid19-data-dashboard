@@ -85,6 +85,13 @@ export default function App(props: AppProps) {
         />
       </Head>
       <ThemeProvider theme={theme}>
+        <pre>Using locale: {locale}</pre>
+        <pre>Router locale: {router.locale}</pre>
+        <pre>Router route: {router.route}</pre>
+        <pre>Router as path: {router.asPath}</pre>
+        <pre>Router default locale: {router.defaultLocale}</pre>
+        <pre>Router domain locale first domain: {router.domainLocales?.at(0)?.domain}</pre>
+        <pre>Router domain locale first defaultLocale: {router.domainLocales?.at(0)?.defaultLocale}</pre>
         <IntlContext.Provider value={intlContext}>
           <GlobalStyle />
           <LazyMotion strict features={loadAnimationFeatures}>
