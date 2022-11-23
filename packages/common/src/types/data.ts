@@ -113,9 +113,9 @@ export interface GmVaccineCoveragePerAgeGroup {
 }
 export interface GmVaccineCoveragePerAgeGroupValue {
   vaccination_type: string;
-  birthyear_range_12_plus: string;
-  birthyear_range_18_plus: string;
-  birthyear_range_60_plus: string;
+  birthyear_range_12_plus: string | null;
+  birthyear_range_18_plus: string | null;
+  birthyear_range_60_plus: string | null;
   vaccinated_percentage_12_plus: number | null;
   vaccinated_percentage_12_plus_label: string | null;
   vaccinated_percentage_18_plus: number | null;
@@ -204,9 +204,9 @@ export interface GmCollectionSewer {
 export interface GmCollectionVaccineCoveragePerAgeGroup {
   gmcode: string;
   vaccination_type: string;
-  birthyear_range_12_plus: string;
-  birthyear_range_18_plus: string;
-  birthyear_range_60_plus: string;
+  birthyear_range_12_plus: string | null;
+  birthyear_range_18_plus: string | null;
+  birthyear_range_60_plus: string | null;
   vaccinated_percentage_12_plus: number | null;
   vaccinated_percentage_12_plus_label: string | null;
   vaccinated_percentage_18_plus: number | null;
@@ -1640,9 +1640,9 @@ export interface VrVaccineCoveragePerAgeGroup {
 }
 export interface VrVaccineCoveragePerAgeGroupValue {
   vaccination_type: string;
-  birthyear_range_12_plus: string;
-  birthyear_range_18_plus: string;
-  birthyear_range_60_plus: string;
+  birthyear_range_12_plus: string | null;
+  birthyear_range_18_plus: string | null;
+  birthyear_range_60_plus: string | null;
   vaccinated_percentage_12_plus: number | null;
   vaccinated_percentage_12_plus_label: string | null;
   vaccinated_percentage_18_plus: number | null;
@@ -1820,9 +1820,9 @@ export interface VrCollectionSituations {
 export interface VrCollectionVaccineCoveragePerAgeGroup {
   vrcode: string;
   vaccination_type: string;
-  birthyear_range_12_plus: string;
-  birthyear_range_18_plus: string;
-  birthyear_range_60_plus: string;
+  birthyear_range_12_plus: string | null;
+  birthyear_range_18_plus: string | null;
+  birthyear_range_60_plus: string | null;
   vaccinated_percentage_12_plus: number | null;
   vaccinated_percentage_12_plus_label: string | null;
   vaccinated_percentage_18_plus: number | null;
