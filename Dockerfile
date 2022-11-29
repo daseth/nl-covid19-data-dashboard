@@ -1,5 +1,5 @@
 # Layer that always gets executed
-FROM vwscdbwebaseacr.azurecr.io/baseimages/node:lts-alpine
+FROM ${REGISTRY_NAME}/baseimages/node:lts-alpine
 
 # Map arguments to environment variables
 ARG ARG_NEXT_PUBLIC_SANITY_DATASET
