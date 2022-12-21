@@ -66,7 +66,7 @@ RUN apk add --no-cache --virtual \
       pangomm-dev \
       libjpeg-turbo-dev \
       freetype-dev \
-    && yarn install --production \
+    && yarn install \
     && yarn cache clean \
     && apk del build-dependencies \
     && apk add --no-cache \
